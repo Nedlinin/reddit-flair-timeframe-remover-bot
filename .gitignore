@@ -1,0 +1,8 @@
+env
+venv
+config/config.ini
+__pycache__
+.idea
+.vscode
+.pytest_cache
+data/run.log

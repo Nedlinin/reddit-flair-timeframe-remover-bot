@@ -1,0 +1,11 @@
+[REDDIT]
+CLIENT_ID = <longidgeneratedfromreddit>
+CLIENT_SECRET = <longkeygeneratedfromreddit>
+PASSWORD = myredditpassword
+USER_NAME = myusername
+SUBREDDIT = music
+USER_AGENT = Update me
+FLAIR_TO_REMOVE = flair
+DAY_START = Monday
+DAY_END = Wednesday
+REMOVAL_REASON_ID = i8daskj21lds
