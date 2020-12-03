@@ -30,8 +30,7 @@ class Submissions:
 
             self.logger.info(f"Handling submission: {submission.title} - http://reddit.com{submission.permalink}")
 
-            if submission.author_flair_css_class is not None \
-                    and self.config.REDDIT.FLAIR_TO_REMOVE in submission.author_flair_css_class:
+            if submission.author_flair_css_class is not None and self.config.REDDIT.FLAIR_TO_REMOVE in submission.author_flair_css_class:
 
                 # Found a seller tagged post.  We might want to act on it.
                 post_creation_date_time = datetime.datetime.fromtimestamp(submission.created_utc)
@@ -58,7 +57,7 @@ class Submissions:
             submission.report("Detected seller during blackout but unable to remove.  Please review post.")
 
     def daemon(self):
-        self.logger.info("Removing seller postings between " + self.config.REDDIT.DAY_START + " and " + self.config.REDDIT.DAY_END)
+        self.logger.info("Removing postings between " + self.config.REDDIT.DAY_START + " and " + self.config.REDDIT.DAY_END)
         try:
             self.run()
         except Exception:
