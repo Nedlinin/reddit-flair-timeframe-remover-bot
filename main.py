@@ -23,8 +23,6 @@ class Submissions:
         self.end_day_int = time.strptime(self.config.REDDIT.DAY_END, '%A').tm_wday
 
     def run(self):
-        print("Removing seller postings between " + self.config.REDDIT.DAY_START + " and " + self.config.REDDIT.DAY_END)
-
         for submission in self.subreddit.stream.submissions():
             # If the submission was already removed we don't need to process it.
             if submission.removed is True:
@@ -48,12 +46,11 @@ class Submissions:
         try:
             self.logger.info(f"Removing post by user: {submission.author.name}")
 
-            # reason = self.subreddit.mod.removal_reasons[self.config.REDDIT.REMOVAL_REASON_ID]
-            # submission.mod.remove(reason_id=reason.id)
-            # print(reason.message)
+            reason = self.subreddit.mod.removal_reasons[self.config.REDDIT.REMOVAL_REASON_ID]
+            submission.mod.remove(reason_id=reason.id)
 
-            # comment = submission.reply(reason.message)
-            # comment.mod.distinguish("yes", sticky=True)
+            comment = submission.reply(reason.message)
+            comment.mod.distinguish("yes", sticky=True)
 
             self.logger.info("Removed post successfully.")
         except Exception:
@@ -61,6 +58,7 @@ class Submissions:
             submission.report("Detected seller during blackout but unable to remove.  Please review post.")
 
     def daemon(self):
+        self.logger.info("Removing seller postings between " + self.config.REDDIT.DAY_START + " and " + self.config.REDDIT.DAY_END)
         try:
             self.run()
         except Exception:
