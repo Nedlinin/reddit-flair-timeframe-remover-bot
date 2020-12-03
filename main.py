@@ -45,15 +45,20 @@ class Submissions:
                     self._remove_post(submission)
 
     def _remove_post(self, submission):
-        self.logger.info(f"Removing post by user: {submission.author.name}")
+        try:
+            self.logger.info(f"Removing post by user: {submission.author.name}")
 
-        # reason = self.subreddit.mod.removal_reasons[self.config.REDDIT.REMOVAL_REASON_ID]
-        # submission.mod.remove(reason_id=reason.id)
+            # reason = self.subreddit.mod.removal_reasons[self.config.REDDIT.REMOVAL_REASON_ID]
+            # submission.mod.remove(reason_id=reason.id)
+            # print(reason.message)
 
-        # comment = submission.reply(reason.message)
-        # comment.mod.distinguish("yes", sticky=True)
+            # comment = submission.reply(reason.message)
+            # comment.mod.distinguish("yes", sticky=True)
 
-        self.logger.info("Removed post successfully.")
+            self.logger.info("Removed post successfully.")
+        except Exception:
+            self.logger.error(f"Failed removing post: {submission.permalink}.  Reporting instead for manual review.")
+            submission.report("Detected seller during blackout but unable to remove.  Please review post.")
 
     def daemon(self):
         try:
