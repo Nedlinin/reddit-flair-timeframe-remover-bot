@@ -38,7 +38,7 @@ class Submissions:
                 creation_day = post_creation_date_time.weekday()
 
                 # Check we are within the range of days we should be removing posts for...
-                if creation_day in range(self.start_day_int, self.end_day_int):
+                if creation_day in range(self.start_day_int, self.end_day_int + 1):
                     self._remove_post(submission)
 
     def _remove_post(self, submission):
