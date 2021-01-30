@@ -48,7 +48,13 @@ class Submissions:
             reason = self.subreddit.mod.removal_reasons[self.config.REDDIT.REMOVAL_REASON_ID]
             submission.mod.remove(reason_id=reason.id)
 
-            comment = submission.reply(reason.message)
+            removal_message = reason.message + f'''
+
+^This ^comment ^was ^sent ^by ^an ^automated ^bot.  ^If ^you ^believe ^this ^message ^does ^not ^resolve ^your ^issue ^please
+[^message ^the ^moderators](http://www.reddit.com/message/compose?to=/r/{self.config.REDDIT.SUBREDDIT}&subject=Please review my post)
+            '''
+
+            comment = submission.reply(removal_message)
             comment.mod.distinguish("yes", sticky=True)
 
             self.logger.info("Removed post successfully.")
